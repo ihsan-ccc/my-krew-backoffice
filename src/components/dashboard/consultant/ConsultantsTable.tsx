@@ -21,8 +21,9 @@ import ConsultantsTablePaginationControls from '@/components/dashboard/consultan
 import EditConsultantDialog from '@/components/dashboard/consultant/EditConsultantDialog';
 import DeleteConsultantAlertDialog from '@/components/dashboard/consultant/DeleteConsultantAlertDialog';
 import BulkEditConsultantsDialog from '@/components/dashboard/consultant/BulkEditConsultantsDialog';
+import ConsultantPasswordDialog from '@/components/dashboard/consultant/ConsultantPasswordDialog';
 import CustomButton from '@/components/custom/CustomButton';
-import { ArrowDown, ArrowUp, ChevronsUpDown, Eye, Pen, Trash } from 'lucide-react';
+import { ArrowDown, ArrowUp, ChevronsUpDown, Eye, KeyRound, Pen, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 interface ConsultantsTableProps {
@@ -56,6 +57,8 @@ const ConsultantsTable = ({
     null
   );
   const [consultantToDelete, setConsultantToDelete] =
+    useState<Consultant | null>(null);
+  const [consultantForPassword, setConsultantForPassword] =
     useState<Consultant | null>(null);
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -241,6 +244,14 @@ const ConsultantsTable = ({
         />
       )}
 
+      {consultantForPassword && (
+        <ConsultantPasswordDialog
+          isOpen={!!consultantForPassword}
+          onClose={() => setConsultantForPassword(null)}
+          consultant={consultantForPassword}
+        />
+      )}
+
       {isBulkEditOpen && (
         <BulkEditConsultantsDialog
           isOpen={isBulkEditOpen}
@@ -417,6 +428,15 @@ const ConsultantsTable = ({
                             icon={<Pen className="flex-none size-4" />}
                           >
                             <span className="sr-only">Modifier</span>
+                          </CustomButton>
+                          <CustomButton
+                            aria-label="Mot de passe du consultant"
+                            title="Mot de passe"
+                            onClick={() => setConsultantForPassword(consultant)}
+                            className="bg-white border border-gray-200 shadow-none text-[#475467] hover:bg-gray-100 px-2.5"
+                            icon={<KeyRound className="flex-none size-4" />}
+                          >
+                            <span className="sr-only">Mot de passe</span>
                           </CustomButton>
                           <CustomButton
                             aria-label="Supprimer le consultant"
