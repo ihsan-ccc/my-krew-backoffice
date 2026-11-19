@@ -14,7 +14,7 @@ import { defaultUserImage } from '../../../public';
 import Image from 'next/image';
 import useGetMe from '@/hooks/auth/useGetMe';
 import CustomButton from '@/components/custom/CustomButton';
-import { LogOut } from 'lucide-react';
+import { KeyRound, LogOut } from 'lucide-react';
 import { logout } from '@/app/actions/logout';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -98,6 +98,14 @@ const SheetSidebar = ({ isOpen, onClose }: SheetSidebarProps) => {
                 </p>
               ) : null}
             </div>
+            <button
+              type="button"
+              onClick={() => router.push('/dashboard/mot-de-passe')}
+              className="flex items-center gap-4 w-full py-2.5 px-4 text-black text-sm font-semibold rounded cursor-pointer hover:bg-[#F9FAFB]"
+            >
+              <KeyRound className="w-4 h-4" />
+              Mot de passe
+            </button>
             <CustomButton
               onClick={handleLogout}
               icon={<LogOut className="size-5" />}
