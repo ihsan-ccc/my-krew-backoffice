@@ -73,3 +73,11 @@ export const signinWithPassword = async (payload: {
 export const setPassword = async (password: string): Promise<void> => {
   await axiosInstance.patch('/users/password', { password });
 };
+
+/** Un admin pose le mot de passe d'un autre compte (ex. compte de démo). */
+export const setPasswordForUser = async (
+  userId: string,
+  password: string
+): Promise<void> => {
+  await axiosInstance.patch(`/users/admin/${userId}/password`, { password });
+};
